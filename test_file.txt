@@ -3,3 +3,10 @@ LEFT
 REPORT
 RIGHT
 MOVE
+This is an invalid command
+This,is,also,an,invalid,command
+
+,,,
+
+PLACE 0,0,0,0,0
+place

@@ -15,7 +15,11 @@ private:
    bool activated;
 
    bool inActivatedState();
-   bool commandIsValid(std::string &command);
+   bool commandIsValid(std::string &command, std::string &command_type, std::string &optional_command_params);
+   void placeRobot(std::string parameters);
+   void moveInCurrentDirection(const TableTop &table_top);
+   void rotateLeft();
+   void rotateRight();
    void report();
 
 public:
