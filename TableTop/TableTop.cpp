@@ -17,5 +17,5 @@ int TableTop::getWidth()
  */
 bool TableTop::coordinateIsValid(Point2D &coordinate)
 {
-   return ((abs(coordinate.x) < width && (abs(coordinate.y) < height))
+   return ((abs(coordinate.x) < width) && (abs(coordinate.y) < height));
 }

@@ -4,7 +4,7 @@
  * Convert the direction to a numeric representation of how a movement of one square in that direction
  * would affect the current position of the robot.
  */
-Point2D convertDirectionToComponents(Direction &direction)
+Point2D convertDirectionToComponents(const Direction &direction)
 {
    Point2D components{0, 0};
 
@@ -38,7 +38,7 @@ Point2D convertDirectionToComponents(Direction &direction)
  * - If yes, convert to corresponding enum value, save in 'direction' and return true
  * - If no, return false
  */
-bool convertStringToDirection(string &stringDirection, Direction &direction)
+bool convertStringToDirection(const string &stringDirection, Direction &direction)
 {
    bool validDirection = false;
 

@@ -1,7 +1,7 @@
 #ifndef _TABLE_TOP_
 #define _TABLE_TOP_
 
-#include "Utils/Coordinate.hpp"
+#include "../Utils/Coordinate.hpp"
 
 class TableTop
 {

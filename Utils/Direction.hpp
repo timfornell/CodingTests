@@ -18,7 +18,7 @@ enum Direction
    West,
 };
 
-Point2D convertDirectionToComponents(Direction &direction);
-bool convertStringToDirection(string &stringDirection, Direction &direction);
+Point2D convertDirectionToComponents(const Direction &direction);
+bool convertStringToDirection(const string &stringDirection, Direction &direction);
 
 #endif // _DIRECTION_
