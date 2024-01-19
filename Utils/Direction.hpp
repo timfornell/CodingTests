@@ -20,5 +20,6 @@ enum Direction
 
 Point2D convertDirectionToComponents(const Direction &direction);
 bool convertStringToDirection(const string &stringDirection, Direction &direction);
+std::string toString(Direction &direction);
 
 #endif // _DIRECTION_

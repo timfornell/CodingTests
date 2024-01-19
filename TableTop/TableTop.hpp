@@ -1,14 +1,17 @@
 #ifndef _TABLE_TOP_
 #define _TABLE_TOP_
 
+#include <vector>
+
 #include "../Utils/Coordinate.hpp"
 
 class TableTop
 {
 private:
-   int width, height;
+   int table_width, table_height;
 
 public:
+   TableTop(int width, int height) : table_width(width), table_height(height) {}
    int getWidth();
    int getHeight();
    bool coordinateIsValid(Point2D &coordinate);

@@ -65,3 +65,30 @@ bool convertStringToDirection(const string &stringDirection, Direction &directio
 
    return validDirection;
 }
+
+std::string toString(Direction &direction)
+{
+   std::string str;
+
+   switch (direction)
+   {
+   case North:
+      str = "North";
+      break;
+   case East:
+      str = "East";
+      break;
+   case South:
+      str = "South";
+      break;
+   case West:
+      str = "West";
+      break;
+
+   default:
+      // Should not end up here
+      break;
+   }
+
+   return str;
+}
