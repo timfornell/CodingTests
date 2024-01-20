@@ -36,6 +36,12 @@ int main(int argc, char *argv[])
    string line;
    while (getline(input_file, line))
    {
+      if (line.rfind("#", 0) == 0)
+      {
+         // This allows for comments in the txt file. Allows for easier comparison of expected output
+         continue;
+      }
+
       cout << "\n>> Command received: " << line << endl;
       robot.performAction(line, table);
    }

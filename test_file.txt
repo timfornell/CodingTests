@@ -1,5 +1,10 @@
+# Robot should not move or report
+MOVE
+REPORT
+# Robot should be placed at 0,0,NORTH
 PLACE 0,0,NORTH
 REPORT
+# Robot should rotate left. North -> West
 LEFT
 REPORT
 RIGHT

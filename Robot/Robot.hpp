@@ -14,12 +14,13 @@ private:
    Direction current_direction;
    bool activated = false;
 
-   bool inActivatedState();
    void getCommandComponents(std::string &command, std::string &command_type, std::string &optional_command_params);
-   void placeRobot(std::string parameters, const TableTop &table_top);
    bool getPlacementInformation(const std::string parameters,
                                 Point2D &starting_coordinates,
                                 Direction &starting_direction);
+
+   // Functions that executes commands
+   void placeRobot(std::string parameters, const TableTop &table_top);
    void moveInCurrentDirection(const TableTop &table_top);
    void rotateLeft();
    void rotateRight();

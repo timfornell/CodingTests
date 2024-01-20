@@ -6,11 +6,6 @@
 #include "Robot.hpp"
 #include "../Utils/Direction.hpp"
 
-bool Robot::inActivatedState()
-{
-   return activated == true;
-}
-
 /*
  * Take the raw string parsed from the action file and try and split it into command_type and optional_command_params
  * Note: this function assumes that any command that consists of more than a command string follows this
@@ -38,64 +33,18 @@ void Robot::getCommandComponents(std::string &command, std::string &command_type
    }
 }
 
-void Robot::report()
-{
-   if (activated)
-   {
-      std::string position_string = "Current position (x, y): (" +
-                                    std::to_string(current_position.x) + ", " +
-                                    std::to_string(current_position.y) + ")";
-      std::string direction_string = "Current direction: " + toString(current_direction);
-      std::cout << position_string << std::endl
-                << direction_string << endl;
-   }
-}
-
-void Robot::performAction(std::string &command, const TableTop &table_top)
-{
-   std::string command_type;
-   std::string optional_command_params;
-   getCommandComponents(command, command_type, optional_command_params);
-
-   if (command_type.compare("PLACE") == 0)
-   {
-      placeRobot(optional_command_params, table_top);
-   }
-   else if (command_type.compare("MOVE") == 0)
-   {
-      moveInCurrentDirection(table_top);
-   }
-   else if (command_type.compare("LEFT") == 0)
-   {
-      rotateLeft();
-   }
-   else if (command_type.compare("RIGHT") == 0)
-   {
-      rotateRight();
-   }
-   else if (command_type.compare("REPORT") == 0)
-   {
-      report();
-   }
-}
-
-void Robot::placeRobot(std::string parameters, const TableTop &table_top)
-{
-   Point2D starting_coordinates;
-   Direction starting_direction;
-
-   if (getPlacementInformation(parameters, starting_coordinates, starting_direction))
-   {
-      if (table_top.coordinateIsValid(starting_coordinates))
-      {
-         current_position.x = starting_coordinates.x;
-         current_position.y = starting_coordinates.y;
-         current_direction = starting_direction;
-         activated = true;
-      }
-   }
-}
-
+/*
+ * Extract placement information from string 'parameters'.
+ *
+ * Splits 'parameters' by the delimiter ',' and verifies that it contains exactly three components. If true,
+ * tries to convert the three components from string to a Point2D (X and Y) and Direction.
+ *
+ * @param parameters: string that should contain parameters for placement
+ * @param starting_coordinates: reference to a Point2D, where parsed X and Y is saved
+ * @param starting_direction: reference to a Direction, where parsed direction is saved
+ *
+ * @return bool that represent if 'parameters' contains valid placement parameters
+ */
 bool Robot::getPlacementInformation(const std::string parameters,
                                     Point2D &starting_coordinates,
                                     Direction &starting_direction)
@@ -142,6 +91,35 @@ bool Robot::getPlacementInformation(const std::string parameters,
    return valid_parameters;
 }
 
+/*
+ * Attempt to place robot on the table
+ *
+ * Takes a string, 'parameters', and checks if it contains x, y and direction according to "X,Y,Direction". If
+ * true, try and place robot at these coordinates on the table. Also, activates the robot.
+ *
+ * @param parameters: string that should contain parameters for placement
+ * @param table_top: reference to the table
+ */
+void Robot::placeRobot(std::string parameters, const TableTop &table_top)
+{
+   Point2D starting_coordinates;
+   Direction starting_direction;
+
+   if (getPlacementInformation(parameters, starting_coordinates, starting_direction))
+   {
+      if (table_top.coordinateIsValid(starting_coordinates))
+      {
+         current_position.x = starting_coordinates.x;
+         current_position.y = starting_coordinates.y;
+         current_direction = starting_direction;
+         activated = true;
+      }
+   }
+}
+
+/*
+ * If robot is activated, try and move in the current direction
+ */
 void Robot::moveInCurrentDirection(const TableTop &table_top)
 {
    if (activated)
@@ -159,6 +137,9 @@ void Robot::moveInCurrentDirection(const TableTop &table_top)
    }
 }
 
+/*
+ * If robot is activated, rotate direction counterclockwise.
+ */
 void Robot::rotateLeft()
 {
    if (activated)
@@ -167,10 +148,66 @@ void Robot::rotateLeft()
    }
 }
 
+/*
+ * If robot is activated, rotate direction clockwise.
+ */
 void Robot::rotateRight()
 {
    if (activated)
    {
       current_direction = rotateDirectionRight(current_direction);
+   }
+}
+
+/*
+ * If robot is activated, report current position and direction of robot.
+ */
+void Robot::report()
+{
+   if (activated)
+   {
+      std::string position_string = "Current position (x, y): (" +
+                                    std::to_string(current_position.x) + ", " +
+                                    std::to_string(current_position.y) + ")";
+      std::string direction_string = "Current direction: " + toString(current_direction);
+      std::cout << position_string << std::endl
+                << direction_string << endl;
+   }
+}
+
+/*
+ * If robot is activated, try and perform an action provided in 'command'.
+ *
+ * Entry point for making the robot perform an action. If the command string can be converted to a valid command, call
+ * the respective command handling function.
+ *
+ * @param command: string to be checked for a valid command
+ * @param table_top: reference to the table
+ */
+void Robot::performAction(std::string &command, const TableTop &table_top)
+{
+   std::string command_type;
+   std::string optional_command_params;
+   getCommandComponents(command, command_type, optional_command_params);
+
+   if (command_type.compare("PLACE") == 0)
+   {
+      placeRobot(optional_command_params, table_top);
+   }
+   else if (command_type.compare("MOVE") == 0)
+   {
+      moveInCurrentDirection(table_top);
+   }
+   else if (command_type.compare("LEFT") == 0)
+   {
+      rotateLeft();
+   }
+   else if (command_type.compare("RIGHT") == 0)
+   {
+      rotateRight();
+   }
+   else if (command_type.compare("REPORT") == 0)
+   {
+      report();
    }
 }
