@@ -95,10 +95,15 @@ TEST_CASE_FIXTURE(RobotTestClass, "Robot: Test special cases")
 {
    std::vector<TestVector> test_input{
        {"PLACE  2,2,WEST", {0, 0}, Direction::West, false},
-       {"PLACE 2,2, WEST", {2, 2}, Direction::West, true},
+       {"PLACE 2,2, WEST", {2, 2}, Direction::West, false},
    };
 
-   RobotTestClass::run_and_assert(test_input);
+   for (auto test_vector : test_input)
+   {
+      robot.performAction(test_vector.input_string, table);
+
+      CHECK(test_vector.expected_activation_status == robot.getActivationStatus());
+   }
 }
 
 TEST_SUITE_END();

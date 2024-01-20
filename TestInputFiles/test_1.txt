@@ -1,2 +1,2 @@
-PLACE       0,   1 2 0,NORTH
+PLACE 0,-1,NORTH
 REPORT

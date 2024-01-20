@@ -27,7 +27,7 @@ TEST_CASE("Coordinate test: Test conversion of strings with valid integers")
 
 TEST_CASE("Coordinate test: Test conversion of numeric limits")
 {
-   const int max_value = std::numeric_limits<int>::min();
+   const int max_value = std::numeric_limits<int>::max();
    const int min_value = std::numeric_limits<int>::min();
    const std::string x_coordinate = std::to_string(max_value);
    const std::string y_coordinate = std::to_string(min_value);
@@ -35,9 +35,21 @@ TEST_CASE("Coordinate test: Test conversion of numeric limits")
    Point2D converted_coordinates;
    const bool success = convertStringToPoint2D(x_coordinate, y_coordinate, converted_coordinates);
 
+   CHECK(success == false);
+}
+
+TEST_CASE("Coordinate test: Test conversion of positive numeric limits")
+{
+   const int max_value = std::numeric_limits<int>::max();
+   const std::string x_coordinate = std::to_string(max_value);
+   const std::string y_coordinate = std::to_string(0);
+
+   Point2D converted_coordinates;
+   const bool success = convertStringToPoint2D(x_coordinate, y_coordinate, converted_coordinates);
+
    CHECK(success == true);
    CHECK(converted_coordinates.x == max_value);
-   CHECK(converted_coordinates.y == min_value);
+   CHECK(converted_coordinates.y == 0);
 }
 
 TEST_CASE("Coordinate test: Test conversion of invalid strings for x coordinate")
