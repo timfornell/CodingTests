@@ -211,3 +211,18 @@ void Robot::performAction(std::string &command, const TableTop &table_top)
       report();
    }
 }
+
+Point2D Robot::getCurrentPosition()
+{
+   return current_position;
+}
+
+Direction Robot::getCurrentDirection()
+{
+   return current_direction;
+}
+
+bool Robot::getActivationStatus()
+{
+   return activated;
+}

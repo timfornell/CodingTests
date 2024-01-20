@@ -28,6 +28,11 @@ private:
 
 public:
    void performAction(std::string &command, const TableTop &table_top);
+
+   // Get functions, currently only used in tests
+   Point2D getCurrentPosition();
+   Direction getCurrentDirection();
+   bool getActivationStatus();
 };
 
 #endif // _ROBOT_
