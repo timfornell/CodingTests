@@ -171,7 +171,7 @@ void Robot::report()
                                     std::to_string(current_position.y) + ")";
       std::string direction_string = "Current direction: " + toString(current_direction);
       std::cout << position_string << std::endl
-                << direction_string << endl;
+                << direction_string << std::endl;
    }
 }
 

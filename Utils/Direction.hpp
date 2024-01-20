@@ -5,8 +5,6 @@
 
 #include "Coordinate.hpp"
 
-using namespace std;
-
 /*
  * Enum to be used to represent the direction of the robot
  */
@@ -18,7 +16,7 @@ enum class Direction
    West,
 };
 
-bool convertStringToDirection(const string &stringDirection, Direction &direction);
+bool convertStringToDirection(const std::string &stringDirection, Direction &direction);
 Direction rotateDirectionLeft(const Direction &direction);
 Direction rotateDirectionRight(const Direction &direction);
 Point2D convertDirectionToComponents(const Direction &direction);

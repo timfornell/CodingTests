@@ -38,7 +38,7 @@ Point2D convertDirectionToComponents(const Direction &direction)
  * - If yes, convert to corresponding enum value, save in 'direction' and return true
  * - If no, return false
  */
-bool convertStringToDirection(const string &stringDirection, Direction &direction)
+bool convertStringToDirection(const std::string &stringDirection, Direction &direction)
 {
    bool validDirection = false;
 
