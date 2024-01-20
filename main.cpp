@@ -66,6 +66,7 @@ int main(int argc, char **argv)
    if (context.shouldExit()) // important - query flags (and --exit) rely on the user doing this
       return res;            // propagate the result of the tests
 
+   // This is only run if the flag '--no-run' is provided
    program(argc, argv);
 
    return res;

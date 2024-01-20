@@ -91,4 +91,14 @@ TEST_CASE_FIXTURE(RobotTestClass, "Robot: Test MOVE command")
    RobotTestClass::run_and_assert(test_input);
 }
 
+TEST_CASE_FIXTURE(RobotTestClass, "Robot: Test special cases")
+{
+   std::vector<TestVector> test_input{
+       {"PLACE  2,2,WEST", {0, 0}, Direction::West, false},
+       {"PLACE 2,2, WEST", {2, 2}, Direction::West, true},
+   };
+
+   RobotTestClass::run_and_assert(test_input);
+}
+
 TEST_SUITE_END();

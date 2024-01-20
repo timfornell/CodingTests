@@ -7,7 +7,8 @@
 #include "../Utils/Direction.hpp"
 
 /*
- * Take the raw string parsed from the action file and try and split it into command_type and optional_command_params
+ * Take the raw string parsed from the action file and try and split it into command_type and optional_command_params.
+ *
  * Note: this function assumes that any command that consists of more than a command string follows this
  * structure: "<CommandType> <X>,<Y>,<Direction>"
  */
@@ -26,7 +27,7 @@ void Robot::getCommandComponents(std::string &command, std::string &command_type
       }
       else
       {
-         // The sent command is either incorrectly formatted or only contains a single word command
+         // The sent command either only contains a single word command or is incorrectly formatted
          command_type = command;
          optional_command_params = "";
       }

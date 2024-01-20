@@ -12,6 +12,7 @@ typedef struct Point2D_
    int y;
 } Point2D;
 
+bool stringOnlyContainsDigits(std::string str);
 bool convertStringToPoint2D(const std::string &x_coordinate,
                             const std::string &y_coordinate,
                             Point2D &coordinate);
