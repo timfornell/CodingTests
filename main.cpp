@@ -17,12 +17,13 @@ int main()
    Robot robot;
 
    // Read input file
-   ifstream input_file("test_file.txt");
+   ifstream input_file("valid_commands.txt");
 
    string line;
    while (getline(input_file, line))
    {
       cout << line << endl;
+      robot.performAction(line, table);
    }
 
    cout << "Finished!" << endl;

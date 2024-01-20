@@ -10,19 +10,19 @@ Point2D convertDirectionToComponents(const Direction &direction)
 
    switch (direction)
    {
-   case North:
+   case Direction::North:
       components.x = 1;
       components.y = 0;
       break;
-   case East:
+   case Direction::East:
       components.x = 0;
       components.y = 1;
       break;
-   case South:
+   case Direction::South:
       components.x = -1;
       components.y = 0;
       break;
-   case West:
+   case Direction::West:
       components.x = 0;
       components.y = -1;
       break;
@@ -45,22 +45,22 @@ bool convertStringToDirection(const string &stringDirection, Direction &directio
    if (stringDirection.compare("NORTH") == 0)
    {
       validDirection = true;
-      direction = North;
+      direction = Direction::North;
    }
    else if (stringDirection.compare("EAST") == 0)
    {
       validDirection = true;
-      direction = East;
+      direction = Direction::East;
    }
    else if (stringDirection.compare("SOUTH") == 0)
    {
       validDirection = true;
-      direction = South;
+      direction = Direction::South;
    }
    else if (stringDirection.compare("WEST") == 0)
    {
       validDirection = true;
-      direction = West;
+      direction = Direction::West;
    }
 
    return validDirection;
@@ -72,16 +72,16 @@ std::string toString(Direction &direction)
 
    switch (direction)
    {
-   case North:
+   case Direction::North:
       str = "North";
       break;
-   case East:
+   case Direction::East:
       str = "East";
       break;
-   case South:
+   case Direction::South:
       str = "South";
       break;
-   case West:
+   case Direction::West:
       str = "West";
       break;
 
@@ -91,4 +91,56 @@ std::string toString(Direction &direction)
    }
 
    return str;
+}
+
+Direction rotateDirectionLeft(const Direction &direction)
+{
+   Direction new_direction;
+   switch (direction)
+   {
+   case Direction::North:
+      new_direction = Direction::West;
+      break;
+   case Direction::East:
+      new_direction = Direction::North;
+      break;
+   case Direction::South:
+      new_direction = Direction::East;
+      break;
+   case Direction::West:
+      new_direction = Direction::South;
+      break;
+
+   default:
+      // Should not end up here
+      break;
+   }
+
+   return new_direction;
+}
+
+Direction rotateDirectionRight(const Direction &direction)
+{
+   Direction new_direction;
+   switch (direction)
+   {
+   case Direction::North:
+      new_direction = Direction::East;
+      break;
+   case Direction::East:
+      new_direction = Direction::South;
+      break;
+   case Direction::South:
+      new_direction = Direction::West;
+      break;
+   case Direction::West:
+      new_direction = Direction::North;
+      break;
+
+   default:
+      // Should not end up here
+      break;
+   }
+
+   return new_direction;
 }

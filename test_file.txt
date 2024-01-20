@@ -1,11 +1,13 @@
 PLACE 0,0,NORTH
 LEFT
-REPORT
 RIGHT
 MOVE
+#LEFT
+#PLACE 0,0,WEST
 This is an invalid command
 This,is,also,an,invalid,command
 
+REPORT
 ,,,
 
 PLACE 0,0,0,0,0

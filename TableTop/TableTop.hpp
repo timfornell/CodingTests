@@ -14,7 +14,7 @@ public:
    TableTop(int width, int height) : table_width(width), table_height(height) {}
    int getWidth();
    int getHeight();
-   bool coordinateIsValid(Point2D &coordinate);
+   bool coordinateIsValid(const Point2D &coordinate) const;
 };
 
 #endif // _TABLE_TOP_

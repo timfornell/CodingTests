@@ -15,7 +15,7 @@ int TableTop::getWidth()
 /*
  * Check if a coordinate is inside the limits of the table.
  */
-bool TableTop::coordinateIsValid(Point2D &coordinate)
+bool TableTop::coordinateIsValid(const Point2D &coordinate) const
 {
-   return ((abs(coordinate.x) < table_width) && (abs(coordinate.y) < table_height));
+   return ((0 <= coordinate.x) && (coordinate.x < table_width) && (0 <= coordinate.y) && (coordinate.y < table_height));
 }
