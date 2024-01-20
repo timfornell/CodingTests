@@ -110,6 +110,9 @@ Direction rotateDirectionRight(const Direction &direction)
  * Convert the direction to a numeric representation of how a movement of one square in that direction
  * would affect the current position of the robot.
  *
+ * The movement direction is aligned so that any movement in East <-> West is along the x axis and
+ * so that any movement in North <-> South is along the y axis.
+ *
  * @param direction: reference to a Direction that should be converted
  *
  * @return Point2D that indicates how the robot would move in provided direction
@@ -122,20 +125,20 @@ Point2D convertDirectionToMovementDirection(const Direction &direction)
    switch (direction)
    {
    case Direction::North:
-      components.x = 1;
-      components.y = 0;
-      break;
-   case Direction::East:
       components.x = 0;
       components.y = 1;
       break;
-   case Direction::South:
-      components.x = -1;
+   case Direction::East:
+      components.x = 1;
       components.y = 0;
       break;
-   case Direction::West:
+   case Direction::South:
       components.x = 0;
       components.y = -1;
+      break;
+   case Direction::West:
+      components.x = -1;
+      components.y = 0;
       break;
    default:
       break;

@@ -103,10 +103,10 @@ TEST_CASE("Direction test: Test conversion of direction to movement components")
    };
 
    std::vector<TestVector> test_values = {
-       {Direction::North, {1, 0}},
-       {Direction::East, {0, 1}},
-       {Direction::South, {-1, 0}},
-       {Direction::West, {0, -1}},
+       {Direction::North, {0, 1}},
+       {Direction::East, {1, 0}},
+       {Direction::South, {0, -1}},
+       {Direction::West, {-1, 0}},
    };
 
    for (auto test_vector : test_values)
