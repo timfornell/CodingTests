@@ -6,6 +6,8 @@
 
 using namespace std;
 
+#define DOCTEST_CONFIG_DISABLE
+
 int main(int argc, char *argv[])
 {
    if (argc != 2)
