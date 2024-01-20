@@ -1,42 +1,14 @@
 #include "Direction.hpp"
 
 /*
- * Convert the direction to a numeric representation of how a movement of one square in that direction
- * would affect the current position of the robot.
- */
-Point2D convertDirectionToComponents(const Direction &direction)
-{
-   Point2D components{0, 0};
-
-   switch (direction)
-   {
-   case Direction::North:
-      components.x = 1;
-      components.y = 0;
-      break;
-   case Direction::East:
-      components.x = 0;
-      components.y = 1;
-      break;
-   case Direction::South:
-      components.x = -1;
-      components.y = 0;
-      break;
-   case Direction::West:
-      components.x = 0;
-      components.y = -1;
-      break;
-   default:
-      break;
-   }
-
-   return components;
-}
-
-/*
  * Check if provided string is a valid direction.
  * - If yes, convert to corresponding enum value, save in 'direction' and return true
  * - If no, return false
+ *
+ * @param stringDirection: string to be converted
+ * @param direction: reference to a Direction where result is saved
+ *
+ * @return bool representing if the conversion was successful
  */
 bool convertStringToDirection(const std::string &stringDirection, Direction &direction)
 {
@@ -66,33 +38,13 @@ bool convertStringToDirection(const std::string &stringDirection, Direction &dir
    return validDirection;
 }
 
-std::string toString(Direction &direction)
-{
-   std::string str;
-
-   switch (direction)
-   {
-   case Direction::North:
-      str = "North";
-      break;
-   case Direction::East:
-      str = "East";
-      break;
-   case Direction::South:
-      str = "South";
-      break;
-   case Direction::West:
-      str = "West";
-      break;
-
-   default:
-      // Should not end up here
-      break;
-   }
-
-   return str;
-}
-
+/*
+ * Rotate provided direction counterclockwise
+ *
+ * @param direction: reference to a Direction to be rotated
+ *
+ * @return a Direction representing the rotated Direction
+ */
 Direction rotateDirectionLeft(const Direction &direction)
 {
    Direction new_direction;
@@ -119,6 +71,13 @@ Direction rotateDirectionLeft(const Direction &direction)
    return new_direction;
 }
 
+/*
+ * Rotate provided direction clockwise
+ *
+ * @param direction: reference to a Direction to be rotated
+ *
+ * @return a Direction representing the rotated Direction
+ */
 Direction rotateDirectionRight(const Direction &direction)
 {
    Direction new_direction;
@@ -143,4 +102,75 @@ Direction rotateDirectionRight(const Direction &direction)
    }
 
    return new_direction;
+}
+
+/*
+ * Convert the direction to a numeric representation of how a movement of one square in that direction
+ * would affect the current position of the robot.
+ *
+ * @param direction: reference to a Direction that should be converted
+ *
+ * @return Point2D that indicates how the robot would move in provided direction
+ */
+Point2D convertDirectionToMovementDirection(const Direction &direction)
+{
+   Point2D components{0, 0};
+
+   switch (direction)
+   {
+   case Direction::North:
+      components.x = 1;
+      components.y = 0;
+      break;
+   case Direction::East:
+      components.x = 0;
+      components.y = 1;
+      break;
+   case Direction::South:
+      components.x = -1;
+      components.y = 0;
+      break;
+   case Direction::West:
+      components.x = 0;
+      components.y = -1;
+      break;
+   default:
+      break;
+   }
+
+   return components;
+}
+
+/*
+ * Convert a Direction to its string representation
+ *
+ * @param direction: reference to a Direction to be converted
+ *
+ * @return a string representing the converted Direction
+ */
+std::string toString(Direction &direction)
+{
+   std::string str;
+
+   switch (direction)
+   {
+   case Direction::North:
+      str = "North";
+      break;
+   case Direction::East:
+      str = "East";
+      break;
+   case Direction::South:
+      str = "South";
+      break;
+   case Direction::West:
+      str = "West";
+      break;
+
+   default:
+      // Should not end up here
+      break;
+   }
+
+   return str;
 }

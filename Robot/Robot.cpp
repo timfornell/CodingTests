@@ -125,7 +125,7 @@ void Robot::moveInCurrentDirection(const TableTop &table_top)
    if (activated)
    {
       Point2D new_position;
-      Point2D desired_movement = convertDirectionToComponents(current_direction);
+      Point2D desired_movement = convertDirectionToMovementDirection(current_direction);
       new_position.x = current_position.x + desired_movement.x;
       new_position.y = current_position.y + desired_movement.y;
 

@@ -7,7 +7,7 @@
 // {
 //    const Direction testDirection = North;
 //    Point2D components;
-//    components = convertDirectionToComponents(testDirection);
+//    components = convertDirectionToMovementDirection(testDirection);
 
 //    CHECK(components.x == 1);
 //    CHECK(components.y == 0);
@@ -17,7 +17,7 @@
 // {
 //    const Direction testDirection = East;
 //    Point2D components;
-//    components = convertDirectionToComponents(testDirection);
+//    components = convertDirectionToMovementDirection(testDirection);
 
 //    CHECK(components.x == 0);
 //    CHECK(components.y == 1);
@@ -27,7 +27,7 @@
 // {
 //    const Direction testDirection = South;
 //    Point2D components;
-//    components = convertDirectionToComponents(testDirection);
+//    components = convertDirectionToMovementDirection(testDirection);
 
 //    CHECK(components.x == -1);
 //    CHECK(components.y == 0);
@@ -37,7 +37,7 @@
 // {
 //    const Direction testDirection = West;
 //    Point2D components;
-//    components = convertDirectionToComponents(testDirection);
+//    components = convertDirectionToMovementDirection(testDirection);
 
 //    CHECK(components.x == 0);
 //    CHECK(components.y == -1);

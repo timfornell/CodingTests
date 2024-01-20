@@ -19,7 +19,7 @@ enum class Direction
 bool convertStringToDirection(const std::string &stringDirection, Direction &direction);
 Direction rotateDirectionLeft(const Direction &direction);
 Direction rotateDirectionRight(const Direction &direction);
-Point2D convertDirectionToComponents(const Direction &direction);
+Point2D convertDirectionToMovementDirection(const Direction &direction);
 std::string toString(Direction &direction);
 
 #endif // _DIRECTION_
