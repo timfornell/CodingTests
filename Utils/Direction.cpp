@@ -48,6 +48,7 @@ bool convertStringToDirection(const std::string &stringDirection, Direction &dir
 Direction rotateDirectionLeft(const Direction &direction)
 {
    Direction new_direction;
+
    switch (direction)
    {
    case Direction::North:
@@ -81,6 +82,7 @@ Direction rotateDirectionLeft(const Direction &direction)
 Direction rotateDirectionRight(const Direction &direction)
 {
    Direction new_direction;
+
    switch (direction)
    {
    case Direction::North:
@@ -114,6 +116,7 @@ Direction rotateDirectionRight(const Direction &direction)
  */
 Point2D convertDirectionToMovementDirection(const Direction &direction)
 {
+   // Default to {0, 0} means that if an unknown direction is provided, the robot won't move
    Point2D components{0, 0};
 
    switch (direction)
