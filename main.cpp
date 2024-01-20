@@ -6,8 +6,17 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 {
+   if (argc != 2)
+   {
+      cerr << "Input file with commands is required! Exiting." << endl;
+      exit(1);
+   }
+
+   // Naive implementation of argument parser that assumes that second argument is a .txt file
+   const string file_path = argv[1];
+
    // Initialize table
    const int table_width = 5;
    const int table_height = 5;
@@ -17,7 +26,12 @@ int main()
    Robot robot;
 
    // Read input file
-   ifstream input_file("valid_commands.txt");
+   ifstream input_file(file_path);
+   if (!input_file.good())
+   {
+      cerr << "Provided file does not exist: " << file_path << endl;
+      exit(1);
+   }
 
    string line;
    while (getline(input_file, line))
@@ -26,5 +40,5 @@ int main()
       robot.performAction(line, table);
    }
 
-   cout << "Finished!" << endl;
+   cout << "\nFinished!" << endl;
 }
