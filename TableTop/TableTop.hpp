@@ -11,7 +11,7 @@ private:
    int table_width, table_height;
 
 public:
-   TableTop(int width, int height) : table_width(width), table_height(height) {}
+   TableTop(const int width, const int height);
    bool coordinateIsValid(const Point2D &coordinate) const;
 };
 
