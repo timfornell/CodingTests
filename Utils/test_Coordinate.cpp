@@ -2,7 +2,7 @@
 #include <limits>
 #include <vector>
 
-#include "../TestFramework/doctest.hpp"
+#include "../doctest.hpp"
 #include "Coordinate.hpp"
 
 TEST_SUITE_BEGIN("Coordinate");

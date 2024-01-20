@@ -1,3 +1,6 @@
+#define DOCTEST_CONFIG_IMPLEMENT
+#include "doctest.hpp"
+
 #include <fstream>
 #include <iostream>
 
@@ -6,18 +9,16 @@
 
 using namespace std;
 
-#define DOCTEST_CONFIG_DISABLE
-
-int main(int argc, char *argv[])
+void program(int argc, char **argv)
 {
-   if (argc != 2)
+   if (argc != 3)
    {
       cerr << "Input file with commands is required! Exiting." << endl;
       exit(1);
    }
 
    // Naive implementation of argument parser that assumes that second argument is a .txt file
-   const string file_path = argv[1];
+   const string file_path = argv[2];
 
    // Initialize table
    const int table_width = 5;
@@ -49,4 +50,23 @@ int main(int argc, char *argv[])
    }
 
    cout << "\nFinished!" << endl;
+}
+
+int main(int argc, char **argv)
+{
+   doctest::Context context;
+
+   context.setOption("abort-after", 5);   // stop test execution after 5 failed assertions
+   context.setOption("order-by", "name"); // sort the test cases by their name
+
+   context.applyCommandLine(argc, argv);
+
+   int res = context.run(); // run
+
+   if (context.shouldExit()) // important - query flags (and --exit) rely on the user doing this
+      return res;            // propagate the result of the tests
+
+   program(argc, argv);
+
+   return res;
 }

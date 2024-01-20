@@ -1,6 +1,6 @@
 #include <vector>
 
-#include "../TestFramework/doctest.hpp"
+#include "../doctest.hpp"
 #include "Direction.hpp"
 
 TEST_SUITE_BEGIN("Direction");

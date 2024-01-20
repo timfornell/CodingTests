@@ -3,7 +3,7 @@
 #include <sstream>
 #include <iostream>
 
-#include "../TestFramework/doctest.hpp"
+#include "../doctest.hpp"
 #include "Robot.hpp"
 #include "../TableTop/TableTop.hpp"
 
