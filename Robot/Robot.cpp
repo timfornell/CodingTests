@@ -116,8 +116,11 @@ bool Robot::getPlacementInformation(const std::string parameters,
       _parameters.erase(0, pos + delimiter.length());
    }
 
-   // If the command is correctly formatted, the remainder in _parameters should be the direction
-   parameters_split.push_back(_parameters);
+   // If the command is correctly formatted, the remainder in _parameters should be the direction.
+   if (_parameters.length() > 0)
+   {
+      parameters_split.push_back(_parameters);
+   }
 
    if (parameters_split.size() == 3)
    {
