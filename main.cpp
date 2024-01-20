@@ -22,7 +22,6 @@ int main()
    string line;
    while (getline(input_file, line))
    {
-      cout << line << endl;
       robot.performAction(line, table);
    }
 

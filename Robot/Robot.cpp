@@ -145,7 +145,6 @@ void Robot::moveInCurrentDirection(const TableTop &table_top)
    {
       Point2D new_position;
       Point2D desired_movement = convertDirectionToComponents(current_direction);
-      std::cout << "Desired movement: " << desired_movement.x << desired_movement.y << std::endl;
       new_position.x = current_position.x + desired_movement.x;
       new_position.y = current_position.y + desired_movement.y;
 
@@ -171,19 +170,4 @@ void Robot::rotateRight()
    {
       current_direction = rotateDirectionRight(current_direction);
    }
-}
-
-Point2D Robot::getCurrentPosition()
-{
-   return current_position;
-}
-
-Direction Robot::getCurrentHeading()
-{
-   return current_direction;
-}
-
-bool Robot::getActivationStatus()
-{
-   return activated;
 }

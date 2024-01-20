@@ -27,9 +27,6 @@ private:
 
 public:
    void performAction(std::string &command, const TableTop &table_top);
-   Point2D getCurrentPosition();  // Currently not used
-   Direction getCurrentHeading(); // Currently not used
-   bool getActivationStatus();    // Currently not used
 };
 
 #endif // _ROBOT_
