@@ -5,37 +5,37 @@
  * - If yes, convert to corresponding enum value, save in 'direction' and return true
  * - If no, return false
  *
- * @param stringDirection: string to be converted
+ * @param string_direction: string to be converted
  * @param direction: reference to a Direction where result is saved
  *
  * @return bool representing if the conversion was successful
  */
-bool convertStringToDirection(const std::string &stringDirection, Direction &direction)
+bool convertStringToDirection(const std::string &string_direction, Direction &direction)
 {
-   bool validDirection = false;
+   bool valid_direction = false;
 
-   if (stringDirection.compare("NORTH") == 0)
+   if (string_direction.compare("NORTH") == 0)
    {
-      validDirection = true;
+      valid_direction = true;
       direction = Direction::North;
    }
-   else if (stringDirection.compare("EAST") == 0)
+   else if (string_direction.compare("EAST") == 0)
    {
-      validDirection = true;
+      valid_direction = true;
       direction = Direction::East;
    }
-   else if (stringDirection.compare("SOUTH") == 0)
+   else if (string_direction.compare("SOUTH") == 0)
    {
-      validDirection = true;
+      valid_direction = true;
       direction = Direction::South;
    }
-   else if (stringDirection.compare("WEST") == 0)
+   else if (string_direction.compare("WEST") == 0)
    {
-      validDirection = true;
+      valid_direction = true;
       direction = Direction::West;
    }
 
-   return validDirection;
+   return valid_direction;
 }
 
 /*

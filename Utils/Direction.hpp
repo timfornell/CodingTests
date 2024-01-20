@@ -16,7 +16,7 @@ enum class Direction
    West,
 };
 
-bool convertStringToDirection(const std::string &stringDirection, Direction &direction);
+bool convertStringToDirection(const std::string &string_direction, Direction &direction);
 Direction rotateDirectionLeft(const Direction &direction);
 Direction rotateDirectionRight(const Direction &direction);
 Point2D convertDirectionToMovementDirection(const Direction &direction);
