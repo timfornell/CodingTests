@@ -1,0 +1,41 @@
+MOVE
+REPORT
+# Robot should not have moved or reported since it hasn't been placed
+PLACE 0,0,NORTH
+REPORT
+# Expected output (0, 0, NORTH)
+LEFT
+REPORT
+# Expected output (0, 0, West)
+RIGHT
+REPORT
+# Expected output (0, 0, North)
+MOVE
+REPORT
+# Expected output (0, 1, North)
+LEFT
+REPORT
+# Expected output (0, 1, West)
+PLACE  0,0,WEST
+REPORT
+# Expected output (0, 1, West)
+# The commands following this line should all be ignored since they are invalid
+This is an invalid command
+REPORT
+This,is,also,an,invalid,command
+REPORT
+,,,
+REPORT
+PLACE 0,0,0,0,0
+REPORT
+place
+REPORT
+PLACE -1,-2,west
+REPORT
+PLACE -1,-2,EAST
+REPORT
+PLACE 3,2,east
+REPORT
+PLACE 3,2,
+REPORT
+# Expected output (0, 1, West)

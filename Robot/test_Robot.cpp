@@ -43,11 +43,11 @@ TEST_CASE_FIXTURE(RobotTestClass, "Robot: Test PLACE command")
 {
    std::vector<TestVector> test_input{
        {"PLACE 1,0,WEST", {1, 0}, Direction::West, true},
-       {"PLACE -1,-1,NORTH", {1, 0}, Direction::West, true}, // Invalid position -> should remain
+       {"PLACE -1,-1,NORTH", {1, 0}, Direction::West, true}, // Invalid position
        {"PLACE 1,0,NORTH", {1, 0}, Direction::North, true},
        {"PLACE 5,5,NORTH", {1, 0}, Direction::North, true}, // Invalid position
        {"PLACE 4,4,SOUTH", {4, 4}, Direction::South, true},
-       {"PLACE 1,1,4,SOUTH", {4, 4}, Direction::South, true}, // Invalid command -> should remain
+       {"PLACE 1,1,4,SOUTH", {4, 4}, Direction::South, true}, // Invalid command
    };
 
    RobotTestClass::run_and_assert(test_input);
@@ -85,7 +85,7 @@ TEST_CASE_FIXTURE(RobotTestClass, "Robot: Test MOVE command")
        {"MOVE", {2, 4}, Direction::East, true},
        {"MOVE", {3, 4}, Direction::East, true},
        {"MOVE", {4, 4}, Direction::East, true},
-       {"MOVE", {4, 4}, Direction::East, true}, // Invalid command
+       {"MOVE", {4, 4}, Direction::East, true}, // Invalid movement
    };
 
    RobotTestClass::run_and_assert(test_input);
@@ -94,8 +94,15 @@ TEST_CASE_FIXTURE(RobotTestClass, "Robot: Test MOVE command")
 TEST_CASE_FIXTURE(RobotTestClass, "Robot: Test special cases")
 {
    std::vector<TestVector> test_input{
-       {"PLACE  2,2,WEST", {0, 0}, Direction::West, false},
-       {"PLACE 2,2, WEST", {2, 2}, Direction::West, false},
+       {"PLACE  2,2,WEST", {0, 0}, Direction::West, false},    // Invalid command
+       {"PLACE 2,2, WEST", {2, 2}, Direction::West, false},    // Invalid command
+       {"PLACE 2,2,1,1,WEST", {2, 2}, Direction::West, false}, // Invalid command
+       {"PLACE 2,2,WEST", {2, 2}, Direction::West, true},
+       {" MOVE", {2, 2}, Direction::West, true},     // Invalid command
+       {"MOVE 1390", {2, 2}, Direction::West, true}, // Invalid command
+       {"MOVE", {1, 2}, Direction::West, true},
+       {"MOVE MOVE", {1, 2}, Direction::West, true}, // Invalid command
+       {"move", {1, 2}, Direction::West, true},      // Invalid command
    };
 
    for (auto test_vector : test_input)

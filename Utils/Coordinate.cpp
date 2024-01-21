@@ -27,6 +27,8 @@ bool stringOnlyContainsDigits(std::string str)
  * Tries to convert the string to an integer with 'std::stoi'. If stoi fails,
  * cath the exception that is thrown and return false.
  *
+ * Note: This treats negative numbers as invalid.
+ *
  * @param str: string to be converted
  * @param coordinate: reference to int where result is saved
  *

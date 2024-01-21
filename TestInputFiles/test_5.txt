@@ -8,6 +8,7 @@ PLACE 4,2,NORTH
 REPORT
 PLACE 10,2,SOUTH
 REPORT
+# Expected output: (4, 2, North)
 MOVE
 REPORT
 LEFT
@@ -28,3 +29,4 @@ MOVE
 REPORT
 MOVE
 REPORT
+# Expected output: (3, 0, South)

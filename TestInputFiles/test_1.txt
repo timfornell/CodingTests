@@ -1,2 +1,4 @@
-PLACE 0,-1,NORTH
+PLACE 0,0,NORTH
+MOVE
 REPORT
+# Expected state: (1, 0, North)

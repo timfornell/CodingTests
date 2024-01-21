@@ -20,14 +20,6 @@ void program(int argc, char **argv)
    // Naive implementation of argument parser that assumes that second argument is a .txt file
    const string file_path = argv[2];
 
-   // Initialize table
-   const int table_width = 5;
-   const int table_height = 5;
-   TableTop table(table_width, table_height);
-
-   // Initialize robot
-   Robot robot;
-
    // Read input file
    ifstream input_file(file_path);
    if (!input_file.good())
@@ -36,12 +28,21 @@ void program(int argc, char **argv)
       exit(1);
    }
 
+   // Initialize table
+   const int table_width = 5;
+   const int table_height = 5;
+   TableTop table(table_width, table_height);
+
+   // Initialize robot
+   Robot robot;
+
    string line;
    while (getline(input_file, line))
    {
       if (line.rfind("#", 0) == 0)
       {
          // This allows for comments in the txt file. Allows for easier comparison of expected output
+         cout << line << endl;
          continue;
       }
 

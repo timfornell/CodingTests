@@ -4,3 +4,4 @@ MOVE
 LEFT
 MOVE
 REPORT
+# Expected state: (3, 3, North)

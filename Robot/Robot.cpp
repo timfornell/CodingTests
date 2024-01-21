@@ -19,7 +19,7 @@ void Robot::getCommandComponents(std::string &command, std::string &command_type
       const std::string command_delimiter = " ";
       const size_t pos = command.find(command_delimiter);
 
-      if (pos > 0)
+      if (pos != std::string::npos)
       {
          // If a space exists, assume first part contains a command type and rest is parameters for command
          command_type = command.substr(0, pos);
@@ -167,12 +167,11 @@ void Robot::report()
 {
    if (activated)
    {
-      std::string position_string = "Current position (x, y): (" +
-                                    std::to_string(current_position.x) + ", " +
-                                    std::to_string(current_position.y) + ")";
-      std::string direction_string = "Current direction: " + toString(current_direction);
-      std::cout << position_string << std::endl
-                << direction_string << std::endl;
+      std::string state_string = "Current state (x, y, F): (" +
+                                 std::to_string(current_position.x) + ", " +
+                                 std::to_string(current_position.y) + ", " +
+                                 toString(current_direction) + ")";
+      std::cout << state_string << std::endl;
    }
 }
 
@@ -195,19 +194,19 @@ void Robot::performAction(std::string &command, const TableTop &table_top)
    {
       placeRobot(optional_command_params, table_top);
    }
-   else if (command_type.compare("MOVE") == 0)
+   else if (command_type.compare("MOVE") == 0 && optional_command_params.length() == 0)
    {
       moveInCurrentDirection(table_top);
    }
-   else if (command_type.compare("LEFT") == 0)
+   else if (command_type.compare("LEFT") == 0 && optional_command_params.length() == 0)
    {
       rotateLeft();
    }
-   else if (command_type.compare("RIGHT") == 0)
+   else if (command_type.compare("RIGHT") == 0 && optional_command_params.length() == 0)
    {
       rotateRight();
    }
-   else if (command_type.compare("REPORT") == 0)
+   else if (command_type.compare("REPORT") == 0 && optional_command_params.length() == 0)
    {
       report();
    }
