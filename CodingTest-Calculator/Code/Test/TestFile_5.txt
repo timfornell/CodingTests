@@ -1,0 +1,7 @@
+b add 20
+a add 20
+print a
+print b
+b divide c
+b multiply a
+print b

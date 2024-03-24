@@ -1,16 +1,105 @@
 # Introduction
 
+## Setup
 
+## Running tests
 
-# Implementation details
+### Test cases
 
-## Case sensitive input
+The following test cases are included:
+
+#### [TestFile_1](Code/Test/TestFile_1.txt)
+
+Example included from instructions.
+
+Expected output:
+
+```Shell
+Output: 5.0
+Output: 3.0
+Output: 6.0
+```
+
+#### [TestFile_2](Code/Test/TestFile_2.txt)
+
+Example included from instructions.
+
+Expected output:
+
+```Shell
+Output: 11.0
+```
+
+#### [TestFile_3](Code/Test/TestFile_3.txt)
+
+Example included from instructions.
+
+Expected output:
+
+```Shell
+Output: 90.0
+```
+
+#### [TestFile_4](Code/Test/TestFile_4.txt)
+
+Circular dependency when trying to evaluate register 'a'.
+
+Expected output:
+
+```Shell
+Error! Encountered a circular dependency: Register 'b' contains a circular reference to register 'a'
+```
+
+#### [TestFile_5](Code/Test/TestFile_5.txt)
+
+Register 'b' tries to perform 'divide' operation with register 'c' which does not have a value. Invalid operation
+are skipped.
+
+Expected output:
+
+```Shell
+Output: 20.0
+Output: 20.0
+The value/registry 'c' could not be resolved and can't be used for operation 'divide'.
+Output: 400.0
+```
+
+#### [TestFile_6](Code/Test/TestFile_6.txt)
+
+Register 'a' tries to use register 'c' before it is created. Once 'c' is created, both 'c' and 'a' can be
+evaluated and printed.
+
+Expected output:
+
+```Shell
+> Encountered a missing register: Can't perform 'print' on 'c' as it doesn't exist.
+The value/registry 'c' could not be resolved and can't be used for operation 'add'.
+> Encountered a register without value: Register 'a' has no value.
+Output: 10.0
+Output: 10.0
+```
+
+#### [TestFile_7](Code/Test/TestFile_7.txt)
+
+Circular dependency between 'b' and 'a' causes first prints to fail. After clearing 'a', the dependency is removed and
+both registers can be evaluated.
+
+Expected output:
+
+```Shell
+> Encountered a circular dependency: Register 'a' contains a circular reference to register 'b'
+Output: 8400.0
+```
+
+## Implementation details
+
+### Case sensitive input
 
 The instructions specify that all input should be case sensitive, yet they include two ways of inputting the 'quit'
 command, i.e., 'quit' and 'QUIT'. I have decided to only allow the lower case form of 'quit'. However, it is something
 that is easily changed if desired.
 
-## Initial value of registers
+### Initial value of registers
 
 The instructions does not specify what should happen if a register is never assigned a value. This could happen in the
 following example:
@@ -23,7 +112,7 @@ print A
 The first provided command is invalid since '#' is not a defined register. Meaning, 'A' doesn't contain a value. In this
 case an error will be thrown, indicating that 'A' does not have a value (and that '#' is not a valid register).
 
-## Circular dependencies
+### Circular dependencies
 
 The instruction does not specify how circular dependencies between registers should be handled. One very simple example
 of a circular dependency is this:
@@ -48,7 +137,7 @@ functionality, I am of the opinion that this solution is to prefer. Mainly becau
 into the code that can make it difficult to predict the behavior of the program.
 
 
-## Clear register
+### Clear register
 
 A consequence of the design decision described in [Circular dependencies](#circular-dependencies) is that a once a
 circular dependency has been created, that register is more or less useless. As illustrated below:

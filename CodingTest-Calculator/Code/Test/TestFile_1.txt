@@ -1,4 +1,3 @@
-1231 add 2
 A add 2
 A add 3
 print A
