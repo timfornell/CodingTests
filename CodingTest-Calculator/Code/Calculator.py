@@ -34,6 +34,10 @@ class Calculator:
             # Remove line breaks
             line = line.rstrip()
 
+            if line == "quit":
+               print("Received 'quit', stopping execution.")
+               break
+
             print(line)
             if not self.ExecuteCommand(line):
                print(f"Something wen't wrong during execution.")

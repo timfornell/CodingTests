@@ -12,3 +12,7 @@ class RegisterNamingError(Exception):
 
 class CommandComponentsError(Exception):
    pass
+
+
+class CalculationError(Exception):
+   pass
