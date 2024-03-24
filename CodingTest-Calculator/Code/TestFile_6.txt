@@ -1,0 +1,6 @@
+a add c
+print c
+print a
+c add 10
+a add c
+print c

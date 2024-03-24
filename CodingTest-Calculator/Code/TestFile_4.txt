@@ -1,0 +1,6 @@
+a add c
+c add b
+c multiply 10
+b add 10
+b multiply a
+print a

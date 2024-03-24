@@ -1,0 +1,9 @@
+a add b
+b add 10
+b multiply a
+print b
+clear a
+b add 20
+a add 20
+b multiply a
+print b

@@ -1,11 +1,17 @@
-from CalculatorExceptions import CircularDependencyError
-from Operator import Operator
+from CalculatorExceptions import RegisterMissingValueError
+from Operators import Operator
 
 
 class Register():
+   name: str
+   current_value: float
+   stored_operations: list
+   has_value: bool
+
    def __init__(self, name: str) -> None:
       self.name = name
       self.current_value = 0.0
+      self.has_value = False
       self.stored_operations = []
 
    def __str__(self) -> str:
@@ -31,5 +37,12 @@ class Register():
       self.current_value = value
 
 
+   def InitializeRegister(self) -> None:
+      self.has_value = True
+
+
    def GetCurrentValue(self) -> float:
+      if not self.has_value:
+         raise RegisterMissingValueError(f"Register '{self}' has no value.")
+
       return self.current_value
