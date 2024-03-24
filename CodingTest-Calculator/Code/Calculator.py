@@ -5,7 +5,7 @@ from typing import Dict
 from Register import Register
 from Operator import Operator, Add, Subtract, Multiply, Divide
 from Function import Print
-from CalculatorExceptions import CommandNotFoundError, RegisterNamingError
+from CalculatorExceptions import CommandNotFoundError, RegisterNamingError, CommandComponentsError
 
 
 class Calculator:
@@ -68,6 +68,9 @@ class Calculator:
       except RegisterNamingError as e:
          print(f"Error! Invalid register name encountered: {e}")
          return False
+      except CommandComponentsError as e:
+         print(f"Error! The line does not contain a valid command.")
+         return False
 
       register_name = command_parts["register"]
       if register_name not in self.registers.keys():
@@ -113,3 +116,6 @@ class Calculator:
 
       if command_parts["register"].isnumeric():
          raise RegisterNamingError(f"'{command_parts['register']}' consists only of integers.")
+
+      if (not command_parts["register"]) and (not command_parts["operation"]) and (not command_parts["value"]):
+         raise CommandComponentsError()

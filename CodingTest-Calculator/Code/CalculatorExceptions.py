@@ -8,3 +8,7 @@ class CircularDependencyError(Exception):
 
 class RegisterNamingError(Exception):
    pass
+
+
+class CommandComponentsError(Exception):
+   pass
