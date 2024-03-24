@@ -5,7 +5,7 @@ from typing import Dict
 from Register import Register
 from Operator import Operator, Add, Subtract, Multiply, Divide
 from Function import Print
-from CalculatorExceptions import CommandNotFoundError, RegisterNamingError, CommandComponentsError
+from CalculatorExceptions import *
 
 
 class Calculator:
@@ -82,12 +82,37 @@ class Calculator:
 
       operation = self.supported_operations[command_parts["operation"]]
       if str(operation) == str(Print()):
-         register = self.registers[register_name]
-         operation.Evaluate(register.GetValue(self.registers, [register_name]))
+         register_value = self.GetValueOfRegister(register_name, [register_name])
+         operation.Evaluate(register_value)
       else:
          self.registers[register_name].AddOperation(operation, command_parts["value"])
 
       return True
+
+
+   def GetValueOfRegister(self, register_name: str, forbidden_registers: list) -> float:
+      register = self.registers[register_name]
+      for op in register.GetStoredOperations():
+         value = op["value"]
+         if value in forbidden_registers:
+            raise CircularDependencyError(f"Encountered a circular dependency to register '{value}' when evaluating register '{self.name}'.")
+
+         operation_value = 0.0
+         if value.isnumeric():
+            operation_value = float(value)
+         elif value in self.registers.keys():
+            operation_value = self.GetValueOfRegister(value, forbidden_registers + [value])
+         else:
+            # If 'value' isn't numeric or an available register, something has gone wrong.
+            raise CalculationError(f"The value/registry '{value}' could not be evaluated.")
+
+         new_value = op["operation"].Evaluate(register.GetCurrentValue(), operation_value)
+         register.SetCurrentValue(new_value)
+
+      # Value has been calculated and stored, no need to store operations anymore
+      register.ClearStoredOperations()
+
+      return register.GetCurrentValue()
 
 
    def ParseCommand(self, command: str) -> dict:
