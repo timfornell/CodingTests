@@ -4,13 +4,15 @@ from typing import Dict
 
 from Register import Register
 from Operator import Operator, Add, Subtract, Multiply, Divide
-from Function import Print
+from Function import Function, Print
 from CalculatorExceptions import *
 
 
 class Calculator:
    registers: Dict[str, Register]
    supported_operations: Dict[str, Operator]
+   supported_functions: Dict[str, Function]
+
 
    def __init__(self) -> None:
       self.registers = {}
@@ -19,6 +21,8 @@ class Calculator:
          str(Subtract()): Subtract(),
          str(Multiply()): Multiply(),
          str(Divide()): Divide(),
+      }
+      self.supported_functions = {
          str(Print()): Print()
       }
 
@@ -39,8 +43,7 @@ class Calculator:
                break
 
             print(line)
-            if not self.ExecuteCommand(line):
-               print(f"Something wen't wrong during execution.")
+            self.ExecuteCommand(line)
 
 
    def RunInteractiveCalculator(self) -> None:
@@ -53,58 +56,60 @@ class Calculator:
             break
 
          print(line)
-         if not self.ExecuteCommand(line):
-            print(f"Something wen't wrong during execution.")
+         self.ExecuteCommand(line)
 
 
-   def ExecuteCommand(self, command_line: str) -> bool:
+   def ExecuteCommand(self, command_line: str) -> None:
       if not command_line:
          print("Empty line received.")
-         return
-
-      command_parts = self.ParseCommand(command_line)
+         return False
 
       try:
+         command_parts = self.ParseCommand(command_line)
          self.ValidateCommand(command_parts)
+
+         register_name = command_parts["register"]
+         if register_name not in self.registers.keys():
+            self.AddNewRegister(register_name)
+
+         register = self.registers[register_name]
+         operation = command_parts["operation"]
+         if operation in self.supported_functions.keys():
+            register_value = self.GetValueOfRegister(register, [register_name])
+            self.supported_functions[operation].Evaluate(register_value)
+         elif operation in self.supported_operations.keys():
+            value = command_parts["value"]
+            register.AddOperation(self.supported_operations[operation], value)
+
       except CommandNotFoundError as e:
          print(f"Error! invalid command encountered: {e}")
-         return False
       except RegisterNamingError as e:
          print(f"Error! Invalid register name encountered: {e}")
-         return False
       except CommandComponentsError as e:
          print(f"Error! The line does not contain a valid command.")
-         return False
-
-      register_name = command_parts["register"]
-      if register_name not in self.registers.keys():
-         self.registers[register_name] = Register(register_name)
-
-      operation = self.supported_operations[command_parts["operation"]]
-      if str(operation) == str(Print()):
-         register_value = self.GetValueOfRegister(register_name, [register_name])
-         operation.Evaluate(register_value)
-      else:
-         self.registers[register_name].AddOperation(operation, command_parts["value"])
-
-      return True
+      except CircularDependencyError as e:
+         print(f"Encountered a circular dependency: {e}")
 
 
-   def GetValueOfRegister(self, register_name: str, forbidden_registers: list) -> float:
-      register = self.registers[register_name]
+   def AddNewRegister(self, register_name: str) -> None:
+      self.registers[register_name] = Register(register_name)
+
+
+   def GetValueOfRegister(self, register: Register, forbidden_registers: list) -> float:
       for op in register.GetStoredOperations():
          value = op["value"]
          if value in forbidden_registers:
-            raise CircularDependencyError(f"Encountered a circular dependency to register '{value}' when evaluating register '{self.name}'.")
+            raise CircularDependencyError(f"Register '{value}' contains a circular dependency to register '{register}'.")
 
          operation_value = 0.0
          if value.isnumeric():
             operation_value = float(value)
          elif value in self.registers.keys():
-            operation_value = self.GetValueOfRegister(value, forbidden_registers + [value])
+            operation_value = self.GetValueOfRegister(self.registers[value], forbidden_registers + [value])
          else:
             # If 'value' isn't numeric or an available register, something has gone wrong.
-            raise CalculationError(f"The value/registry '{value}' could not be evaluated.")
+            print(f"The value/registry '{value}' could not be resolved and is skipped.")
+            continue
 
          new_value = op["operation"].Evaluate(register.GetCurrentValue(), operation_value)
          register.SetCurrentValue(new_value)
@@ -140,11 +145,12 @@ class Calculator:
       return command_parts
 
    def ValidateCommand(self, command_parts: dict) -> None:
-      if command_parts["operation"] not in self.supported_operations.keys():
+      if (not command_parts["register"]) and (not command_parts["operation"]) and (not command_parts["value"]):
+         raise CommandComponentsError()
+
+      if ((command_parts["operation"] not in self.supported_operations.keys()) and
+          (command_parts["operation"] not in self.supported_functions)):
          raise CommandNotFoundError(f"'{command_parts['operation']}' is not supported.")
 
       if command_parts["register"].isnumeric():
          raise RegisterNamingError(f"'{command_parts['register']}' consists only of integers.")
-
-      if (not command_parts["register"]) and (not command_parts["operation"]) and (not command_parts["value"]):
-         raise CommandComponentsError()

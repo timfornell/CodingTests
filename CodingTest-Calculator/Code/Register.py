@@ -1,4 +1,4 @@
-from CalculatorExceptions import CircularDependencyError, CalculationError
+from CalculatorExceptions import CircularDependencyError
 from Operator import Operator
 
 
