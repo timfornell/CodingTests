@@ -6,5 +6,5 @@ class CircularDependencyError(Exception):
    pass
 
 
-class registerNamingError(Exception):
+class RegisterNamingError(Exception):
    pass
