@@ -2,8 +2,12 @@ from abc import ABC, abstractmethod
 
 
 class Operator(ABC):
+   """
+   The Operator class is intended to contain operators that a single value as input. The value can either be a
+   number or a register.
+   """
    @abstractmethod
-   def Evaluate(self, register: str, value: str):
+   def Evaluate(self, register_value: float, operation_value: float) -> float:
       pass
 
 
@@ -11,29 +15,29 @@ class Add(Operator):
    def __str__(self) -> str:
       return "add"
 
-   def Evaluate(self):
-      return super().Evaluate()
+   def Evaluate(self, register_value: float, operation_value: float) -> float:
+      return register_value + operation_value
 
 
 class Subtract(Operator):
    def __str__(self) -> str:
       return "subtract"
 
-   def Evaluate(self):
-      return super().Evaluate()
+   def Evaluate(self, register_value: float, operation_value: float) -> float:
+      return register_value - operation_value
 
 
 class Multiply(Operator):
    def __str__(self) -> str:
       return "multiply"
 
-   def Evaluate(self):
-      return super().Evaluate()
+   def Evaluate(self, register_value: float, operation_value: float) -> float:
+      return register_value * operation_value
 
 
 class Divide(Operator):
    def __str__(self) -> str:
       return "divide"
 
-   def Evaluate(self):
-      return super().Evaluate()
+   def Evaluate(self, register_value: float, operation_value: float) -> float:
+      return register_value / operation_value
