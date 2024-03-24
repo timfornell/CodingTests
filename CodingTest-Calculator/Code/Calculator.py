@@ -86,17 +86,17 @@ class Calculator:
             self.AddOperationToRegister(register_name, operation, value)
 
       except CommandNotFoundError as e:
-         print(f"Error! Invalid command encountered: {e}")
+         print(f"> Invalid command encountered: {e}")
       except RegisterNamingError as e:
-         print(f"Error! Invalid register name encountered: {e}")
+         print(f"> Invalid register name encountered: {e}")
       except CommandComponentsError as e:
-         print(f"Error! The line does not contain a valid command: {e}")
+         print(f"> The line does not contain a valid command: {e}")
       except CircularDependencyError as e:
-         print(f"Error! Encountered a circular dependency: {e}")
+         print(f"> Encountered a circular dependency: {e}")
       except RegisterNotFoundError as e:
-         print(f"Error! Encountered a missing register: {e}")
+         print(f"> Encountered a missing register: {e}")
       except RegisterMissingValueError as e:
-         print(f"Error! Encountered a register without value: {e}")
+         print(f"> Encountered a register without value: {e}")
 
 
    def AddOperationToRegister(self, register_name: str, operation: str, value: str) -> None:
@@ -139,7 +139,7 @@ class Calculator:
       for op in register.GetStoredOperations():
          value = op["value"]
          if value in forbidden_registers:
-            raise CircularDependencyError(f"Register '{value}' contains a circular dependency to register '{register}'.")
+            raise CircularDependencyError(f"Register '{register}' contains a circular reference to register '{value}'")
 
          operation_value = 0.0
          if value.isnumeric():
@@ -150,6 +150,7 @@ class Calculator:
          else:
             # If 'value' isn't numeric or an available register, something has gone wrong.
             print(f"The value/registry '{value}' could not be resolved and can't be used for operation '{op['operation']}'.")
+            # No exception is raised since an invalid operation should not prevent further execution.
             continue
 
          # If this point is reached, the register shall be considered initialized
@@ -157,8 +158,9 @@ class Calculator:
          new_value = op["operation"].Evaluate(register.GetCurrentValue(), operation_value)
          register.SetCurrentValue(new_value)
 
-      # Value has been calculated and stored, no need to store operations anymore
-      register.ClearStoredOperations()
+      if register.IsInitialized():
+         # Value has been calculated and stored, no need to store operations anymore
+         register.ClearStoredOperations()
 
       return register.GetCurrentValue()
 

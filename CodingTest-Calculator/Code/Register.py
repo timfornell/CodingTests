@@ -41,6 +41,10 @@ class Register():
       self.has_value = True
 
 
+   def IsInitialized(self) -> None:
+      return self.has_value
+
+
    def GetCurrentValue(self) -> float:
       if not self.has_value:
          raise RegisterMissingValueError(f"Register '{self}' has no value.")
