@@ -6,7 +6,23 @@
 
 ### Test cases
 
-The following test cases are included:
+The sub chapters contains the expected output for some simple test cases.
+
+To execute these tests do one of the following:
+
+```Shell
+cd Calculator
+python3 main.py -f Code/Test/TestFile_1.txt
+```
+
+and look at the corresponding chapter for expected output.
+
+Or run:
+
+```Shell
+cd Calculator
+python -m pytest Test/
+```
 
 #### [TestFile_1](Code/Test/TestFile_1.txt)
 
@@ -136,7 +152,6 @@ evaluated and 'a' can't be evaluated before 'b' is evaluated, is to prevent regi
 that hasn't been completely evaluated. Without knowing the entire use case of the program and if this is desired
 functionality, I am of the opinion that this solution is to prefer. Mainly because it does not introduce extra logic
 into the code that can make it difficult to predict the behavior of the program.
-
 
 ### Clear register
 

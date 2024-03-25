@@ -3,17 +3,14 @@ import logging
 from pathlib import Path
 from typing import Dict, List
 
-from Register import Register
-from Operators import Operator, Add, Subtract, Multiply, Divide
-from Functions import Print, Clear
-from CalculatorExceptions import *
+from Register.Register import Register
+from Operators.Operators import Operator, Add, Subtract, Multiply, Divide
+from Functions.Functions import Print, Clear
+from Exceptions.CalculatorExceptions import *
 
 
 # Logging config
 logging.basicConfig(level=logging.WARNING, format="%(levelname)s%(message)s")
-# Set to 'logging.WARNING' to enable logging messages
-logging.getLogger().setLevel(logging.WARNING)
-
 
 
 class Calculator:

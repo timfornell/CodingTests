@@ -1,5 +1,5 @@
-from CalculatorExceptions import RegisterMissingValueError
-from Operators import Operator
+from Exceptions.CalculatorExceptions import RegisterMissingValueError
+from Operators.Operators import Operator
 
 
 class Register():
