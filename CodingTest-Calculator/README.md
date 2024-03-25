@@ -2,11 +2,17 @@
 
 ## Setup
 
+The only requirement to run the program is to have Python 3 installed. Program is tested with version 3.10.8.
+
+To execute the tests the module pytest is required. To install the correct version run the following:
+
+```Shell
+python -m venv .venv
+source .venv/Scripts/activate
+python -m pip install -r requirements.txt
+```
+
 ## Running tests
-
-### Test cases
-
-The sub chapters contains the expected output for some simple test cases.
 
 To execute these tests do one of the following:
 
@@ -23,6 +29,10 @@ Or run:
 cd Calculator
 python -m pytest Test/
 ```
+
+### Test cases
+
+The sub chapters contains the expected output for some simple test cases.
 
 #### [TestFile_1](Code/Test/TestFile_1.txt)
 
