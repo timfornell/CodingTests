@@ -41,7 +41,6 @@ def get_test_cases():
    ]
 
 
-
 def test_calculator(capsys):
    test_cases = get_test_cases()
    for test_case in test_cases:
