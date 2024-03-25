@@ -10,7 +10,7 @@ from CalculatorExceptions import *
 
 
 # Logging config
-logging.basicConfig(level=logging.WARNING, format="%(levelname)s%(message)s")
+logging.basicConfig(level=logging.WARNING, format="%(levelname)s: %(message)s")
 
 
 class Calculator:
@@ -175,7 +175,7 @@ class Calculator:
             raise CircularDependencyError(f"Register '{register}' contains a circular reference to register '{value}'")
 
          operation_value = 0.0
-         if value.isnumeric():
+         if self.IsNumeric(value):
             operation_value = float(value)
          elif value in self.registers.keys():
             # Add current register to list of forbidden registers and try to calculate value of referenced register
@@ -244,3 +244,13 @@ class Calculator:
 
       if not command_parts["register"].isalnum():
          raise RegisterNamingError(f"'{command_parts['register']}' consists only of integers.")
+
+   def IsNumeric(self, value: str) -> bool:
+      """
+      Check if a string is valid number, the brute force way.
+      """
+      try:
+         value = float(value)
+         return True
+      except ValueError:
+         return False

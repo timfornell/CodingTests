@@ -37,6 +37,10 @@ def get_test_cases():
       {
          "file": "Test/TestFiles/TestFile_7.txt",
          "expected_output": ["Output: 8400.0", "Output: 20.0"]
+      },
+      {
+         "file": "Test/TestFiles/TestFile_8.txt",
+         "expected_output": ["Output: 0.0", "Output: 6.0"]
       }
    ]
 

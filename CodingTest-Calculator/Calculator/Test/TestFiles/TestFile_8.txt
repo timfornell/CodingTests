@@ -1,0 +1,6 @@
+a add 3
+a add -3
+print a
+a add 3
+a subtract -3
+print a
