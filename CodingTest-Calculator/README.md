@@ -1,5 +1,9 @@
 # Introduction
 
+This coding test contains a simple calculator. The details of the calculator are not included in the documentation
+as the files was asked to be kept anonymous.
+
+
 ## Setup
 
 The only requirement to run the program is to have Python 3 installed. Program is tested with version 3.10.8.
@@ -10,6 +14,26 @@ To execute the tests the module pytest is required. To install the correct versi
 python -m venv .venv
 source .venv/Scripts/activate
 python -m pip install -r requirements.txt
+```
+
+## Running calculator
+
+If Python 3 is installed the calculator can be run in one of two ways:
+
+### Interactively
+
+This requires the user to provide input via stdin.
+
+```Shell
+python Calculator/main.py
+```
+
+### From a file
+
+This requires the user to provide a path to a file that contains input.
+
+```Shell
+python Calculator/main.py -f <path-to-file>
 ```
 
 ## Running tests
