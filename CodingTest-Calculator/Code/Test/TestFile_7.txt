@@ -7,3 +7,4 @@ b add 20
 a add 20
 b multiply a
 print b
+print a

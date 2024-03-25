@@ -89,6 +89,7 @@ Expected output:
 ```Shell
 > Encountered a circular dependency: Register 'a' contains a circular reference to register 'b'
 Output: 8400.0
+Output: 20.0
 ```
 
 ## Implementation details

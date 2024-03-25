@@ -5,11 +5,12 @@ class Operator(ABC):
    """
    The Operator class is intended to contain operators that a single value as input. The value can either be a
    number or a register.
+
+   Currently, the class only supports operators that operates on the value of a register and one other value.
    """
    @abstractmethod
    def Evaluate(self, register_value: float, operation_value: float) -> float:
       pass
-
 
 class Add(Operator):
    def __str__(self) -> str:
