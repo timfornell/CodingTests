@@ -10,7 +10,7 @@ def test_initialization():
 
    assert register.name == name
    assert register.current_value == 0.0
-   assert register.has_value == False
+   assert not register.has_value
    assert register.stored_operations == []
 
 
@@ -61,4 +61,4 @@ def test_set_and_get_value():
    register.InitializeRegister()
 
    assert register.IsInitialized()
-   assert register.GetCurrentValue() == value # float comparison is a bit risky...
+   assert register.GetCurrentValue() == value  # float comparison is a bit risky...

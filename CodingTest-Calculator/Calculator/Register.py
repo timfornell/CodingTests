@@ -17,33 +17,26 @@ class Register():
    def __str__(self) -> str:
       return self.name
 
-
    def AddOperation(self, operation: Operator, value: str):
       self.stored_operations.append({
          "operation": operation,
          "value": value
       })
 
-
    def GetStoredOperations(self) -> list:
       return self.stored_operations
-
 
    def ClearStoredOperations(self) -> None:
       self.stored_operations = []
 
-
    def SetCurrentValue(self, value: float) -> None:
       self.current_value = value
-
 
    def InitializeRegister(self) -> None:
       self.has_value = True
 
-
    def IsInitialized(self) -> None:
       return self.has_value
-
 
    def GetCurrentValue(self) -> float:
       if not self.has_value:

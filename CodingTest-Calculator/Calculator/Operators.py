@@ -12,6 +12,7 @@ class Operator(ABC):
    def Evaluate(self, register_value: float, operation_value: float) -> float:
       pass
 
+
 class Add(Operator):
    def __str__(self) -> str:
       return "add"

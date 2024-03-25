@@ -42,7 +42,7 @@ To execute these tests do one of the following:
 
 ```Shell
 cd Calculator
-python3 main.py -f Calculator/Test/TestFile_1.txt
+python3 main.py -f Calculator/Test/TestFiles/TestFile_1.txt
 ```
 
 and look at the corresponding chapter for expected output.
@@ -58,7 +58,7 @@ python -m pytest Test/
 
 The sub chapters contains the expected output for some simple test cases.
 
-#### [TestFile_1](Calculator/Test/TestFile_1.txt)
+#### [TestFile_1](Calculator/Test/TestFiles/TestFile_1.txt)
 
 Example included from instructions.
 
@@ -70,7 +70,7 @@ Output: 3.0
 Output: 6.0
 ```
 
-#### [TestFile_2](Calculator/Test/TestFile_2.txt)
+#### [TestFile_2](Calculator/Test/TestFiles/TestFile_2.txt)
 
 Example included from instructions.
 
@@ -80,7 +80,7 @@ Expected output:
 Output: 11.0
 ```
 
-#### [TestFile_3](Calculator/Test/TestFile_3.txt)
+#### [TestFile_3](Calculator/Test/TestFiles/TestFile_3.txt)
 
 Example included from instructions.
 
@@ -90,7 +90,7 @@ Expected output:
 Output: 90.0
 ```
 
-#### [TestFile_4](Calculator/Test/TestFile_4.txt)
+#### [TestFile_4](Calculator/Test/TestFiles/TestFile_4.txt)
 
 Circular dependency when trying to evaluate register 'a'.
 
@@ -100,7 +100,7 @@ Expected output:
 Error! Encountered a circular dependency: Register 'b' contains a circular reference to register 'a'
 ```
 
-#### [TestFile_5](Calculator/Test/TestFile_5.txt)
+#### [TestFile_5](Calculator/Test/TestFiles/TestFile_5.txt)
 
 Register 'b' tries to perform 'divide' operation with register 'c' which does not have a value. Invalid operation
 are skipped.
@@ -114,7 +114,7 @@ The value/registry 'c' could not be resolved and can't be used for operation 'di
 Output: 400.0
 ```
 
-#### [TestFile_6](Calculator/Test/TestFile_6.txt)
+#### [TestFile_6](Calculator/Test/TestFiles/TestFile_6.txt)
 
 Register 'a' tries to use register 'c' before it is created. Once 'c' is created, both 'c' and 'a' can be
 evaluated and printed.
@@ -129,7 +129,7 @@ Output: 10.0
 Output: 10.0
 ```
 
-#### [TestFile_7](Calculator/Test/TestFile_7.txt)
+#### [TestFile_7](Calculator/Test/TestFiles/TestFile_7.txt)
 
 Circular dependency between 'b' and 'a' causes first prints to fail. After clearing 'a', the dependency is removed and
 both registers can be evaluated.
@@ -140,6 +140,17 @@ Expected output:
 > Encountered a circular dependency: Register 'a' contains a circular reference to register 'b'
 Output: 8400.0
 Output: 20.0
+```
+
+#### [TestFile_8](Calculator/Test/TestFiles/TestFile_8.txt)
+
+Test to verify that negative values are handled correctly.
+
+Expected output:
+
+```Shell
+Output: 0.0
+Output: 6.0
 ```
 
 ## Implementation details
@@ -221,3 +232,25 @@ print b
 ```
 
 Which would make the register 'a' usable again.
+
+### Negative values
+
+It isn't explicitly stated if negative values should be valid input. Although, it isn't stated that they shouldn't be
+supported either. Regardless, it is allowed to input negative values in the commands.
+
+The command:
+
+```Shell
+a add 3
+a add -3
+print a
+a add 3
+a subtract -3
+```
+
+Will produce:
+
+```Shell
+Output: 0.0
+Output: 6.0
+```

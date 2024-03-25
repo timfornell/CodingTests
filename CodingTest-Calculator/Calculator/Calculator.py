@@ -6,7 +6,8 @@ from typing import Dict, List
 from Register import Register
 from Operators import Operator, Add, Subtract, Multiply, Divide
 from Functions import Print, Clear
-from CalculatorExceptions import *
+from CalculatorExceptions import CommandNotFoundError, CircularDependencyError, RegisterNamingError, \
+   CommandComponentsError, RegisterNotFoundError, RegisterMissingValueError
 
 
 # Logging config
@@ -19,7 +20,8 @@ class Calculator:
 
    Contains the following class parameters:
    -  registers: dict that contains all currently available registers on the form {<register name>: <Register object>}
-   -  supported_operators: dict that contains all supported operations on the form: {<operation name>: <Operation object>}
+   -  supported_operators: dict that contains all supported operations on the form:
+      {<operation name>: <Operation object>}
    -  supported_functions: dict that contains all supported functions on the form: {<function name>: <Function object>}
 
    Any new operators or functions need to be added to the corresponding variable for the calculator to access them.
@@ -31,7 +33,6 @@ class Calculator:
    registers: Dict[str, Register]
    supported_operations: Dict[str, Operator]
    supported_functions: List[str]
-
 
    def __init__(self) -> None:
       self.registers = {}
@@ -45,7 +46,6 @@ class Calculator:
          str(Print()),
          str(Clear())
       ]
-
 
    def RunCalculator(self, file_with_commands: str) -> None:
       file_with_commands = Path(file_with_commands)
@@ -64,7 +64,6 @@ class Calculator:
 
             self.ExecuteCommand(line)
 
-
    def RunInteractiveCalculator(self) -> None:
       for line in sys.stdin:
          # Remove line breaks
@@ -75,7 +74,6 @@ class Calculator:
             break
 
          self.ExecuteCommand(line)
-
 
    def ExecuteCommand(self, command_line: str) -> None:
       """
@@ -106,7 +104,7 @@ class Calculator:
          logging.warning(f"> Invalid command encountered: {e}")
       except RegisterNamingError as e:
          logging.warning(f"> Invalid register name encountered: {e}")
-      except CommandComponentsError as e:
+      except CommandComponentsError:
          logging.warning(f"> The line does not contain a valid command: {command_line}")
       except CircularDependencyError as e:
          logging.warning(f"> Encountered a circular dependency: {e}")
@@ -114,7 +112,6 @@ class Calculator:
          logging.warning(f"> Encountered a missing register: {e}")
       except RegisterMissingValueError as e:
          logging.warning(f"> Encountered a register without value: {e}")
-
 
    def AddOperationToRegister(self, register_name: str, operation: str, value: str) -> None:
       """
@@ -130,7 +127,6 @@ class Calculator:
          self.AddNewRegister(register_name)
 
       self.registers[register_name].AddOperation(self.supported_operations[operation], value)
-
 
    def RunFunctionOnRegister(self, register_name: str, operation: str) -> None:
       """
@@ -152,10 +148,8 @@ class Calculator:
          # Clear the specified register
          Clear().Evaluate(self.registers[register_name])
 
-
    def AddNewRegister(self, register_name: str) -> None:
       self.registers[register_name] = Register(register_name)
-
 
    def GetValueOfRegister(self, register: Register, forbidden_registers: list) -> float:
       """
@@ -182,7 +176,8 @@ class Calculator:
             operation_value = self.GetValueOfRegister(self.registers[value], forbidden_registers + [value])
          else:
             # If 'value' isn't numeric or an available register, something has gone wrong.
-            logging.warning(f"The value/registry '{value}' could not be resolved and can't be used for operation '{op['operation']}'.")
+            logging.warning(f"The value/registry '{value}' could not be resolved and can't be used for operation \
+                              '{op['operation']}'.")
             # No exception is raised since an invalid operation should not prevent further execution.
             continue
 
@@ -196,7 +191,6 @@ class Calculator:
          register.ClearStoredOperations()
 
       return register.GetCurrentValue()
-
 
    def ParseCommand(self, command: str) -> dict:
       """
