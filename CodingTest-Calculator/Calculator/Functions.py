@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from Register.Register import Register
+from Register import Register
 
 
 class Print():
